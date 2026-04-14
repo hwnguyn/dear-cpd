@@ -1,107 +1,163 @@
-<!doctype html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>OPIUOI</title>
-  <style>
-    :root { --bg1: #0b1220; --bg2: #1b2735; --accent: #ffccd5 }
-    html, body { height: 100%; margin: 0; }
-    body {
-      margin: 0;
-      height: 100vh;
-      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-      overflow-x: hidden;
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+// =========================
+// App.tsx
+// =========================
+import React from "react";
 
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: twinkle 2s infinite ease-in-out;
-      pointer-events: none;
-    }
-    @keyframes twinkle { 0%, 100% { opacity: 0.8 } 50% { opacity: 0.2 } }
+export default function App() {
+  return (
+    <div className="relative min-h-screen bg-background text-foreground overflow-hidden">
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKVIGWJOttwIXH07IWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4"
+      />
 
-    .container { position: relative; width: 100%; height: 100vh; overflow: hidden }
+      {/* Navbar */}
+      <nav className="relative z-10 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
+        <div
+          className="text-3xl tracking-tight"
+          style={{ fontFamily: "'Instrument Serif', serif" }}
+        >
+          Velorah
+        </div>
 
-    .phrase {
-      position: absolute;
-      font-size: clamp(12px, 3.5vw, 20px);
-      font-weight: 500;
-      background: rgba(255, 192, 203, 0.2);
-      border: 1px solid rgba(255, 192, 203, 0.6);
-      border-radius: 20px;
-      padding: 6px 10px;
-      color: var(--accent);
-      text-shadow: 0 0 6px rgba(255, 192, 203, 0.8);
-      animation: fall linear forwards;
-      pointer-events: none;
-      max-width: 90vw;
-      word-wrap: break-word;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    @keyframes fall {
-      0% { transform: translateY(-50px); opacity: 0 }
-      10% { opacity: 1 }
-      100% { transform: translateY(110vh); opacity: 0 }
-    }
+        <div className="hidden md:flex items-center gap-8 text-sm">
+          <a className="text-foreground">Home</a>
+          <a className="text-muted-foreground hover:text-foreground transition-colors">Studio</a>
+          <a className="text-muted-foreground hover:text-foreground transition-colors">About</a>
+          <a className="text-muted-foreground hover:text-foreground transition-colors">Journal</a>
+          <a className="text-muted-foreground hover:text-foreground transition-colors">Reach Us</a>
+        </div>
 
-    @media (max-width: 420px) { 
-      .phrase { font-size: 11px; padding: 5px 8px; } 
-    }
-  </style>
-</head>
-<body>
-  <div class="container" id="container"></div>
+        <button className="liquid-glass rounded-full px-6 py-2.5 text-sm hover:scale-[1.03] transition">
+          Begin Journey
+        </button>
+      </nav>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const phrases = [
-        "Cảm ơn vì đã không bỏ cuộc","Cứng đầu vô cùng luôn","Ăn nhiều lên cho mau lớn nhé","Đừng bỏ bữaaaa","Thuốc đắng gheeee","Ngủ muộn hại sức khỏe lắm","Mình ộp mệt là được rồi","ộp luôn ở đây","Chị Lê Minh Thư rất ngoan","Chị à, tôi tự hào về chị","ộp sẽ luôn ở đây","ộp iu đâyyyy","Chị đâu ồi","Chị Lê Minh Thư xinh thíiii","Không ai tự hào về chị, thì nay có em rồi","Đừng bỏ cuộc","new york city là đồ cờ hó","Em sẽ bảo vệ chị","Chị bảo kê đàn em này nhé","Tiểu bảo bốiiii","Chị ơiiiii","Chị ơi ộp đây","Có gì kể ộp nghe điiii","Chị xinh lắmmm","Vì chị xứng đáng","Chị Thư oiiii","Em ở đây nè","Ôm cái nè","Xoa xoa cái cho đỡ mệt nèee","Ngủ sớm đi bảo bối","Tôi nhắc chị","Mong mọi điều tốt đẹp sẽ tới với chị","Chị đẹp ơi"
-      ];
+      {/* Hero */}
+      <section className="relative z-10 flex flex-col items-center text-center px-6 pt-32 pb-40">
+        <h1
+          className="text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-[-2.46px] max-w-5xl font-normal animate-fade-rise"
+          style={{ fontFamily: "'Instrument Serif', serif" }}
+        >
+          Where <em className="not-italic text-muted-foreground">dreams</em> rise <em className="not-italic text-muted-foreground">through the silence.</em>
+        </h1>
 
-      const container = document.getElementById('container');
+        <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mt-8 leading-relaxed animate-fade-rise-delay">
+          We're designing tools for deep thinkers, bold creators, and quiet rebels. Amid the chaos, we build digital spaces for sharp focus and inspired work.
+        </p>
 
-      function createPhrase() {
-        const phrase = document.createElement('div');
-        phrase.className = 'phrase';
-        const text = phrases[Math.floor(Math.random() * phrases.length)];
-        phrase.textContent = text;
+        <button className="liquid-glass rounded-full px-14 py-5 text-base mt-12 hover:scale-[1.03] transition animate-fade-rise-delay-2">
+          Begin Journey
+        </button>
+      </section>
+    </div>
+  );
+}
 
-        phrase.style.left = (10 + Math.random() * 80) + 'vw';
-        phrase.style.top = '-5vh';
-        phrase.style.animationDuration = (6 + Math.random() * 4) + 's'; // tốc độ nhanh hơn
-        container.appendChild(phrase);
 
-        setTimeout(() => {
-          if (phrase && phrase.parentNode) phrase.parentNode.removeChild(phrase);
-        }, (parseFloat(phrase.style.animationDuration) * 1000) + 500);
-      }
+// =========================
+// styles.css (CREATE THIS FILE SEPARATELY)
+// =========================
+// ⚠️ IMPORTANT: DO NOT put CSS inside TSX file
+// Create src/styles.css and paste below content
 
-      function createStars(count) {
-        for (let i = 0; i < count; i++) {
-          const star = document.createElement('div');
-          star.className = 'star';
-          const size = (Math.random() * 2 + 0.8).toFixed(2) + 'px';
-          star.style.width = size;
-          star.style.height = size;
-          star.style.left = (Math.random() * 100) + 'vw';
-          star.style.top = (Math.random() * 100) + 'vh';
-          star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-          document.body.appendChild(star);
-        }
-      }
+/*
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500&display=swap');
 
-      createStars(90);
-      for (let i = 0; i < 6; i++) setTimeout(createPhrase, i * 500);
-      setInterval(createPhrase, 1500);
-    });
-  </script>
-</body>
-</html>
+:root {
+  --font-display: 'Instrument Serif', serif;
+  --font-body: 'Inter', sans-serif;
+
+  --background: 201 100% 13%;
+  --foreground: 0 0% 100%;
+  --muted-foreground: 240 4% 66%;
+
+  --primary: 0 0% 100%;
+  --primary-foreground: 0 0% 4%;
+
+  --secondary: 0 0% 10%;
+  --muted: 0 0% 10%;
+  --accent: 0 0% 10%;
+
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes fade-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-rise { animation: fade-rise 0.8s ease-out both; }
+.animate-fade-rise-delay { animation: fade-rise 0.8s ease-out 0.2s both; }
+.animate-fade-rise-delay-2 { animation: fade-rise 0.8s ease-out 0.4s both; }
+*/
+
+
+// =========================
+// main.tsx (IMPORTANT)
+// =========================
+// import "./styles.css";
+
+
+// =========================
+// WHY THIS FIX WORKS
+// =========================
+// ❌ Old bug: CSS was inside TSX → Vite/Babel parse error → mistaken as decorator syntax
+// ✅ Fix: Move CSS to separate file → no syntax conflict
+
+
+// =========================
+// TESTS
+// =========================
+// Basic render test
+// render(<App />)
+// expect(screen.getByText(/Velorah/i)).toBeInTheDocument();
+
+// Extra test: Hero text exists
+// expect(screen.getByText(/dreams/i)).toBeInTheDocument();
+
+// Extra test: CTA button exists
+// expect(screen.getAllByText(/Begin Journey/i).length).toBeGreaterThan(0);
