@@ -1,163 +1,193 @@
-// =========================
-// App.tsx
-// =========================
-import React from "react";
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dear Pí Đông 🎂</title>
+  <style>
+    :root{
+      --bg1:#ffb6c1;
+      --bg2:#ff99cc;
+      --accent:#ffd166;
+      --cream:#fff3e6;
+      --cake:#f7c6c7;
+      --text:#5c0a33;
+      --shadow: 0 12px 28px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: "Segoe UI", system-ui, Roboto, Arial, sans-serif; color:var(--text);
+      background: radial-gradient(1200px 600px at 50% 20%, var(--bg2) 0%, var(--bg1) 100%);
+      display:grid; place-items:center; overflow:hidden;
+    }
 
-export default function App() {
-  return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-hidden">
-      {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKVIGWJOttwIXH07IWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4"
-      />
+    .scene{ position:relative; width: min(720px, 94vw); padding: 24px 16px 32px; text-align:center; }
+    h1{ font-size: clamp(26px, 6vw, 44px); margin-bottom:6px; letter-spacing:.5px; }
+    .date{ font-weight:700; letter-spacing:3px; font-size: clamp(16px, 3.5vw, 20px); margin-bottom:12px }
 
-      {/* Navbar */}
-      <nav className="relative z-10 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-        <div
-          className="text-3xl tracking-tight"
-          style={{ fontFamily: "'Instrument Serif', serif" }}
-        >
-          Velorah
+    .stage{ display:grid; place-items:end center; height:min(46vh, 380px); position:relative; }
+    .cake{ position:relative; width:min(320px, 80vw); height:min(160px, 32vh); display:grid; place-items:end center; }
+
+    .layers{ position:absolute; bottom:14px; width:72%; left:14%; }
+    .layer{ position:relative; width:100%; height:64px; background: var(--cake); border-radius: 14px; box-shadow: inset 0 -5px 0 rgba(0,0,0,.06), var(--shadow); }
+    .layer.top{ height:64px; border-radius: 18px; }
+
+    .cream{ position:absolute; top:-18px; left:0; right:0; height:32px; background: var(--cream); border-radius:16px 16px 0 0; box-shadow: inset 0 -5px 0 rgba(0,0,0,.05); }
+    .cream:before{ content:""; position:absolute; width:44px; height:20px; background:var(--cream); border-radius:0 0 18px 18px;
+      bottom:-14px; left:20px; box-shadow: 70px 0 0 var(--cream), 140px 0 0 var(--cream); }
+
+    .candles{ position:absolute; bottom: calc(64px + 32px); left:50%; transform:translateX(-50%); display:flex; }
+    .candle{ position:relative; width:14px; height:54px; background: repeating-linear-gradient(90deg, #ffd6d6 0 7px, #ffc3c3 7px 14px);
+      border-radius: 5px; box-shadow: inset 0 -5px rgba(0,0,0,.08); display:flex; align-items:flex-start; justify-content:center; }
+    .wick{ width:2px; height:9px; background:#222; border-radius:2px; margin-top:-7px; }
+
+    .flame{ position:absolute; top:-18px; left:50%; transform:translateX(-50%); width:16px; height:24px; border-radius:50%;
+      background: radial-gradient(ellipse at center, #fffde1 0%, #ffe08a 40%, #ffa600 70%, rgba(255,166,0,0) 72%);
+      filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.9)) drop-shadow(0 0 20px rgba(255, 222, 89, 0.8));
+      transform-origin: 50% 100%; animation: flicker .11s infinite alternate ease-in-out, sway 1.6s ease-in-out infinite; }
+    @keyframes flicker{from{transform:translateX(-50%) scaleY(1)}to{transform:translateX(-50%) scaleY(.92)}}
+    @keyframes sway{ 0%,100%{ margin-left:0 } 50%{ margin-left:2px } }
+
+    .glow{ position:absolute; top:-28px; left:50%; transform:translateX(-50%); width:38px; height:38px; border-radius:50%; background: radial-gradient(circle, rgba(255,198,74,.6), rgba(255,198,74,0)); filter: blur(2px); pointer-events:none; animation: glow 2.4s ease-in-out infinite; }
+    @keyframes glow{ 0%,100%{opacity:.9} 50%{opacity:.6} }
+
+    .smoke{ position:absolute; top:-8px; left:50%; width:5px; height:5px; background: radial-gradient(circle, rgba(200,200,200,.8), rgba(200,200,200,0)); border-radius:50%; transform:translateX(-50%);
+      animation: rise 1.4s ease-out forwards; filter: blur(.6px); opacity:.85 }
+    @keyframes rise{ 0%{ transform:translate(-50%, 0) scale(.6); opacity:.8 } 60%{ opacity:.5 } 100%{ transform:translate(calc(-50% + var(--x, 0px)), -70px) scale(1.4); opacity:0 } }
+
+    .sparkles{ position:absolute; inset:0; pointer-events:none; }
+    .sparkles i{ position:absolute; width:3px; height:3px; border-radius:50%; background: #fff; box-shadow: 0 0 6px #fff, 0 0 12px var(--accent);
+      animation: twinkle 2.2s linear infinite; opacity:.8 }
+    @keyframes twinkle{ 0%,100%{ transform:scale(.6); opacity:.5 } 50%{ transform:scale(1.1); opacity:1 } }
+
+    body.blown .flame, body.blown .glow{ opacity:0; transform:translateX(-50%) scale(.4); transition: .28s ease; animation: none; filter:none }
+
+    .firework{ position:absolute; width:7px; height:7px; border-radius:50%; background:#fff; pointer-events:none; animation: explode 1.6s ease-out forwards; }
+    @keyframes explode{ 0%{ transform:scale(0.3); opacity:1 } 80%{ opacity:1 } 100%{ transform:translate(var(--dx), var(--dy)) scale(0.6); opacity:0 } }
+
+    .card{ position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(.9); background:#fff; color:#333; padding:20px; border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,.22); max-width:90%; text-align:center; font-size:16px; line-height:1.4; opacity:0; pointer-events:none; transition:all .4s ease; }
+    .card.show{ opacity:1; pointer-events:auto; transform:translate(-50%,-50%) scale(1); }
+
+    .actions{ margin-top: 12px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap }
+    button{ appearance:none; border:0; padding:8px 12px; border-radius:999px; cursor:pointer; background:#ffe08a; color:#6b2a00; font-weight:700;
+      box-shadow: var(--shadow); transition: transform .08s ease, box-shadow .2s ease; font-size:15px }
+    button:hover{ transform: translateY(-1px) }
+    button:active{ transform: translateY(0) scale(.97) }
+
+    #blow{ background:#ffd166; color:#4a2500; }
+
+    @media (max-width:480px){
+      .card{ font-size:15px; padding:16px; }
+      h1{ font-size:22px }
+      .date{ font-size:14px }
+    }
+
+    @media (max-height:640px){ .stage{ height:44vh } }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="sparkles" aria-hidden="true"></div>
+    <h1>🎉 Dear <strong>Pí Đông</strong>!</h1>
+    <div class="date">20 - 08</div>
+
+    <div class="stage">
+      <div class="cake" id="cake" tabindex="0" role="button" aria-label="Bánh sinh nhật – bấm để thổi nến">
+        <div class="layers">
+          <div class="layer top">
+            <div class="cream"></div>
+          </div>
         </div>
 
-        <div className="hidden md:flex items-center gap-8 text-sm">
-          <a className="text-foreground">Home</a>
-          <a className="text-muted-foreground hover:text-foreground transition-colors">Studio</a>
-          <a className="text-muted-foreground hover:text-foreground transition-colors">About</a>
-          <a className="text-muted-foreground hover:text-foreground transition-colors">Journal</a>
-          <a className="text-muted-foreground hover:text-foreground transition-colors">Reach Us</a>
+        <div class="candles" id="candles">
+          <div class="candle"><span class="glow"></span><span class="flame"></span><span class="wick"></span></div>
         </div>
-
-        <button className="liquid-glass rounded-full px-6 py-2.5 text-sm hover:scale-[1.03] transition">
-          Begin Journey
-        </button>
-      </nav>
-
-      {/* Hero */}
-      <section className="relative z-10 flex flex-col items-center text-center px-6 pt-32 pb-40">
-        <h1
-          className="text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-[-2.46px] max-w-5xl font-normal animate-fade-rise"
-          style={{ fontFamily: "'Instrument Serif', serif" }}
-        >
-          Where <em className="not-italic text-muted-foreground">dreams</em> rise <em className="not-italic text-muted-foreground">through the silence.</em>
-        </h1>
-
-        <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mt-8 leading-relaxed animate-fade-rise-delay">
-          We're designing tools for deep thinkers, bold creators, and quiet rebels. Amid the chaos, we build digital spaces for sharp focus and inspired work.
-        </p>
-
-        <button className="liquid-glass rounded-full px-14 py-5 text-base mt-12 hover:scale-[1.03] transition animate-fade-rise-delay-2">
-          Begin Journey
-        </button>
-      </section>
+      </div>
     </div>
-  );
-}
 
+    <div class="actions">
+      <button id="blow">Thổi nến</button>
+      <button id="relight" hidden>Thắp nến lại</button>
+    </div>
+  </div>
 
-// =========================
-// styles.css (CREATE THIS FILE SEPARATELY)
-// =========================
-// ⚠️ IMPORTANT: DO NOT put CSS inside TSX file
-// Create src/styles.css and paste below content
+  <div class="card" id="card">
+    🎂 Chúc Pí <b>Đông</b> bước sang tuổi mới<br>
+    gặp nhiều may mắn, công việc thuận lợi.<br><br>
+    Em không biết bày tỏ lắm nên chị thông cảm nhó,<br>
+    chúc Pí tất cảaaa <3
+  </div>
 
-/*
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500&display=swap');
+  <script>
+    const sparkles = document.querySelector('.sparkles');
+    for(let i=0;i<25;i++){
+      const s = document.createElement('i');
+      s.style.left = Math.random()*100+'%';
+      s.style.top = Math.random()*40+'%';
+      s.style.animationDelay = (Math.random()*2)+'s';
+      sparkles.appendChild(s);
+    }
 
-:root {
-  --font-display: 'Instrument Serif', serif;
-  --font-body: 'Inter', sans-serif;
+    const cake = document.getElementById('cake');
+    const blowBtn = document.getElementById('blow');
+    const relightBtn = document.getElementById('relight');
+    const card = document.getElementById('card');
+    let blown = false;
 
-  --background: 201 100% 13%;
-  --foreground: 0 0% 100%;
-  --muted-foreground: 240 4% 66%;
+    function makeSmokeBurst(){
+      const candle = document.querySelector('.candle');
+      for(let i=0;i<6;i++){
+        const p = document.createElement('span');
+        p.className='smoke';
+        p.style.setProperty('--x', (Math.random()*30-15)+'px');
+        p.style.animationDelay = (Math.random()*0.25)+'s';
+        candle.appendChild(p);
+        setTimeout(()=>p.remove(), 1600);
+      }
+    }
 
-  --primary: 0 0% 100%;
-  --primary-foreground: 0 0% 4%;
+    function makeFireworks(){
+      const colors = ['#ff3b3b','#ffcc00','#00d9ff','#9d4edd','#00ff85','#ff66cc','#00ffea'];
+      for(let i=0;i<60;i++){
+        const fw = document.createElement('span');
+        fw.className='firework';
+        fw.style.left = '50%';
+        fw.style.top = '40%';
+        const angle = Math.random()*2*Math.PI;
+        const distance = 160+Math.random()*100;
+        fw.style.background = colors[Math.floor(Math.random()*colors.length)];
+        fw.style.setProperty('--dx', Math.cos(angle)*distance+'px');
+        fw.style.setProperty('--dy', Math.sin(angle)*distance+'px');
+        document.body.appendChild(fw);
+        setTimeout(()=>fw.remove(), 1600);
+      }
+    }
 
-  --secondary: 0 0% 10%;
-  --muted: 0 0% 10%;
-  --accent: 0 0% 10%;
+    function blowOut(){
+      if(blown) return;
+      blown = true;
+      document.body.classList.add('blown');
+      makeSmokeBurst();
+      makeFireworks();
+      relightBtn.hidden = false;
+      blowBtn.hidden = true;
+      card.classList.add('show');
+    }
 
-  --border: 0 0% 18%;
-  --input: 0 0% 18%;
-}
+    function relight(){
+      blown = false;
+      document.body.classList.remove('blown');
+      relightBtn.hidden = true;
+      blowBtn.hidden = false;
+      card.classList.remove('show');
+    }
 
-body {
-  font-family: var(--font-body);
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-}
-
-.liquid-glass {
-  background: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-.liquid-glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.4px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.45) 0%,
-    rgba(255, 255, 255, 0.15) 20%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0.15) 80%,
-    rgba(255, 255, 255, 0.45) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-@keyframes fade-rise {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-rise { animation: fade-rise 0.8s ease-out both; }
-.animate-fade-rise-delay { animation: fade-rise 0.8s ease-out 0.2s both; }
-.animate-fade-rise-delay-2 { animation: fade-rise 0.8s ease-out 0.4s both; }
-*/
-
-
-// =========================
-// main.tsx (IMPORTANT)
-// =========================
-// import "./styles.css";
-
-
-// =========================
-// WHY THIS FIX WORKS
-// =========================
-// ❌ Old bug: CSS was inside TSX → Vite/Babel parse error → mistaken as decorator syntax
-// ✅ Fix: Move CSS to separate file → no syntax conflict
-
-
-// =========================
-// TESTS
-// =========================
-// Basic render test
-// render(<App />)
-// expect(screen.getByText(/Velorah/i)).toBeInTheDocument();
-
-// Extra test: Hero text exists
-// expect(screen.getByText(/dreams/i)).toBeInTheDocument();
-
-// Extra test: CTA button exists
-// expect(screen.getAllByText(/Begin Journey/i).length).toBeGreaterThan(0);
+    cake.addEventListener('click', blowOut);
+    cake.addEventListener('touchstart', ()=> blowOut(), {passive:true});
+    cake.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') blowOut(); });
+    blowBtn.addEventListener('click', blowOut);
+    relightBtn.addEventListener('click', relight);
+  </script>
+</body>
+</html>
