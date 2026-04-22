@@ -1,193 +1,206 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dear Pí Đông 🎂</title>
-  <style>
-    :root{
-      --bg1:#ffb6c1;
-      --bg2:#ff99cc;
-      --accent:#ffd166;
-      --cream:#fff3e6;
-      --cake:#f7c6c7;
-      --text:#5c0a33;
-      --shadow: 0 12px 28px rgba(0,0,0,.25);
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: "Segoe UI", system-ui, Roboto, Arial, sans-serif; color:var(--text);
-      background: radial-gradient(1200px 600px at 50% 20%, var(--bg2) 0%, var(--bg1) 100%);
-      display:grid; place-items:center; overflow:hidden;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dear Pí Đông 🎂</title>
 
-    .scene{ position:relative; width: min(720px, 94vw); padding: 24px 16px 32px; text-align:center; }
-    h1{ font-size: clamp(26px, 6vw, 44px); margin-bottom:6px; letter-spacing:.5px; }
-    .date{ font-weight:700; letter-spacing:3px; font-size: clamp(16px, 3.5vw, 20px); margin-bottom:12px }
+<style>
+:root{
+  --bg1:#ffb6c1;
+  --bg2:#ff99cc;
+  --primary:#ffd166;
+  --text:#4a0d2c;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(0,0,0,.15);
+}
 
-    .stage{ display:grid; place-items:end center; height:min(46vh, 380px); position:relative; }
-    .cake{ position:relative; width:min(320px, 80vw); height:min(160px, 32vh); display:grid; place-items:end center; }
+*{margin:0;padding:0;box-sizing:border-box}
 
-    .layers{ position:absolute; bottom:14px; width:72%; left:14%; }
-    .layer{ position:relative; width:100%; height:64px; background: var(--cake); border-radius: 14px; box-shadow: inset 0 -5px 0 rgba(0,0,0,.06), var(--shadow); }
-    .layer.top{ height:64px; border-radius: 18px; }
+body{
+  font-family:"Segoe UI", system-ui, sans-serif;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  overflow:hidden;
+}
 
-    .cream{ position:absolute; top:-18px; left:0; right:0; height:32px; background: var(--cream); border-radius:16px 16px 0 0; box-shadow: inset 0 -5px 0 rgba(0,0,0,.05); }
-    .cream:before{ content:""; position:absolute; width:44px; height:20px; background:var(--cream); border-radius:0 0 18px 18px;
-      bottom:-14px; left:20px; box-shadow: 70px 0 0 var(--cream), 140px 0 0 var(--cream); }
+/* CONTAINER */
+.container{
+  text-align:center;
+  max-width:500px;
+  padding:20px;
+}
 
-    .candles{ position:absolute; bottom: calc(64px + 32px); left:50%; transform:translateX(-50%); display:flex; }
-    .candle{ position:relative; width:14px; height:54px; background: repeating-linear-gradient(90deg, #ffd6d6 0 7px, #ffc3c3 7px 14px);
-      border-radius: 5px; box-shadow: inset 0 -5px rgba(0,0,0,.08); display:flex; align-items:flex-start; justify-content:center; }
-    .wick{ width:2px; height:9px; background:#222; border-radius:2px; margin-top:-7px; }
+/* TITLE */
+h1{
+  font-size:32px;
+  margin-bottom:20px;
+}
 
-    .flame{ position:absolute; top:-18px; left:50%; transform:translateX(-50%); width:16px; height:24px; border-radius:50%;
-      background: radial-gradient(ellipse at center, #fffde1 0%, #ffe08a 40%, #ffa600 70%, rgba(255,166,0,0) 72%);
-      filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.9)) drop-shadow(0 0 20px rgba(255, 222, 89, 0.8));
-      transform-origin: 50% 100%; animation: flicker .11s infinite alternate ease-in-out, sway 1.6s ease-in-out infinite; }
-    @keyframes flicker{from{transform:translateX(-50%) scaleY(1)}to{transform:translateX(-50%) scaleY(.92)}}
-    @keyframes sway{ 0%,100%{ margin-left:0 } 50%{ margin-left:2px } }
+/* CAKE */
+.cake{
+  position:relative;
+  width:220px;
+  height:140px;
+  margin:0 auto 20px;
+  cursor:pointer;
+}
 
-    .glow{ position:absolute; top:-28px; left:50%; transform:translateX(-50%); width:38px; height:38px; border-radius:50%; background: radial-gradient(circle, rgba(255,198,74,.6), rgba(255,198,74,0)); filter: blur(2px); pointer-events:none; animation: glow 2.4s ease-in-out infinite; }
-    @keyframes glow{ 0%,100%{opacity:.9} 50%{opacity:.6} }
+.layer{
+  width:100%;
+  height:60px;
+  background:#f7c6c7;
+  border-radius:14px;
+  position:absolute;
+  bottom:0;
+  box-shadow:var(--shadow);
+}
 
-    .smoke{ position:absolute; top:-8px; left:50%; width:5px; height:5px; background: radial-gradient(circle, rgba(200,200,200,.8), rgba(200,200,200,0)); border-radius:50%; transform:translateX(-50%);
-      animation: rise 1.4s ease-out forwards; filter: blur(.6px); opacity:.85 }
-    @keyframes rise{ 0%{ transform:translate(-50%, 0) scale(.6); opacity:.8 } 60%{ opacity:.5 } 100%{ transform:translate(calc(-50% + var(--x, 0px)), -70px) scale(1.4); opacity:0 } }
+.cream{
+  position:absolute;
+  top:-18px;
+  width:100%;
+  height:30px;
+  background:#fff3e6;
+  border-radius:14px 14px 0 0;
+}
 
-    .sparkles{ position:absolute; inset:0; pointer-events:none; }
-    .sparkles i{ position:absolute; width:3px; height:3px; border-radius:50%; background: #fff; box-shadow: 0 0 6px #fff, 0 0 12px var(--accent);
-      animation: twinkle 2.2s linear infinite; opacity:.8 }
-    @keyframes twinkle{ 0%,100%{ transform:scale(.6); opacity:.5 } 50%{ transform:scale(1.1); opacity:1 } }
+/* CANDLE */
+.candle{
+  position:absolute;
+  width:12px;
+  height:50px;
+  background:#ffc3c3;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:60px;
+  border-radius:4px;
+}
 
-    body.blown .flame, body.blown .glow{ opacity:0; transform:translateX(-50%) scale(.4); transition: .28s ease; animation: none; filter:none }
+.flame{
+  position:absolute;
+  width:14px;
+  height:22px;
+  background:radial-gradient(circle,#fff,#ffa600);
+  border-radius:50%;
+  top:-20px;
+  left:50%;
+  transform:translateX(-50%);
+  animation:flicker .12s infinite alternate;
+}
 
-    .firework{ position:absolute; width:7px; height:7px; border-radius:50%; background:#fff; pointer-events:none; animation: explode 1.6s ease-out forwards; }
-    @keyframes explode{ 0%{ transform:scale(0.3); opacity:1 } 80%{ opacity:1 } 100%{ transform:translate(var(--dx), var(--dy)) scale(0.6); opacity:0 } }
+@keyframes flicker{
+  from{transform:translateX(-50%) scale(1)}
+  to{transform:translateX(-50%) scale(.9)}
+}
 
-    .card{ position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(.9); background:#fff; color:#333; padding:20px; border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,.22); max-width:90%; text-align:center; font-size:16px; line-height:1.4; opacity:0; pointer-events:none; transition:all .4s ease; }
-    .card.show{ opacity:1; pointer-events:auto; transform:translate(-50%,-50%) scale(1); }
+/* BUTTON */
+button{
+  padding:10px 18px;
+  border:none;
+  border-radius:999px;
+  background:var(--primary);
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  transition:.2s;
+}
+button:hover{transform:translateY(-2px)}
 
-    .actions{ margin-top: 12px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap }
-    button{ appearance:none; border:0; padding:8px 12px; border-radius:999px; cursor:pointer; background:#ffe08a; color:#6b2a00; font-weight:700;
-      box-shadow: var(--shadow); transition: transform .08s ease, box-shadow .2s ease; font-size:15px }
-    button:hover{ transform: translateY(-1px) }
-    button:active{ transform: translateY(0) scale(.97) }
+/* CARD */
+.card{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(.9);
+  background:var(--white);
+  padding:24px;
+  border-radius:16px;
+  max-width:320px;
+  text-align:center;
+  line-height:1.6;
+  box-shadow:var(--shadow);
+  opacity:0;
+  transition:.4s;
+}
 
-    #blow{ background:#ffd166; color:#4a2500; }
+.card.show{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
 
-    @media (max-width:480px){
-      .card{ font-size:15px; padding:16px; }
-      h1{ font-size:22px }
-      .date{ font-size:14px }
-    }
+/* FIREWORK */
+.firework{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  animation:explode 1.4s ease-out forwards;
+}
 
-    @media (max-height:640px){ .stage{ height:44vh } }
-  </style>
+@keyframes explode{
+  0%{transform:scale(.3);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy));opacity:0}
+}
+</style>
 </head>
+
 <body>
-  <div class="scene">
-    <div class="sparkles" aria-hidden="true"></div>
-    <h1>🎉 Dear <strong>Pí Đông</strong>!</h1>
-    <div class="date">20 - 08</div>
 
-    <div class="stage">
-      <div class="cake" id="cake" tabindex="0" role="button" aria-label="Bánh sinh nhật – bấm để thổi nến">
-        <div class="layers">
-          <div class="layer top">
-            <div class="cream"></div>
-          </div>
-        </div>
+<div class="container">
+  <h1>🎉 Dear <b>Pí Đông</b></h1>
 
-        <div class="candles" id="candles">
-          <div class="candle"><span class="glow"></span><span class="flame"></span><span class="wick"></span></div>
-        </div>
-      </div>
+  <div class="cake" onclick="blow()">
+    <div class="layer">
+      <div class="cream"></div>
     </div>
-
-    <div class="actions">
-      <button id="blow">Thổi nến</button>
-      <button id="relight" hidden>Thắp nến lại</button>
+    <div class="candle">
+      <div class="flame" id="flame"></div>
     </div>
   </div>
 
-  <div class="card" id="card">
-    🎂 Chúc Pí <b>Đông</b> bước sang tuổi mới<br>
-    gặp nhiều may mắn, công việc thuận lợi.<br><br>
-    Em không biết bày tỏ lắm nên chị thông cảm nhó,<br>
-    chúc Pí tất cảaaa <3
-  </div>
+  <button onclick="blow()">Thổi nến</button>
+</div>
 
-  <script>
-    const sparkles = document.querySelector('.sparkles');
-    for(let i=0;i<25;i++){
-      const s = document.createElement('i');
-      s.style.left = Math.random()*100+'%';
-      s.style.top = Math.random()*40+'%';
-      s.style.animationDelay = (Math.random()*2)+'s';
-      sparkles.appendChild(s);
-    }
+<div class="card" id="card">
+  🎂 Dear <b>Pí Đông</b>,<br><br>
+  Chúc chị sang tuổi mới luôn may mắn và công việc thuận lợi.<br><br>
+  Em không biết bày tỏ nhiều, mong chị thông cảm. 💖
+</div>
 
-    const cake = document.getElementById('cake');
-    const blowBtn = document.getElementById('blow');
-    const relightBtn = document.getElementById('relight');
-    const card = document.getElementById('card');
-    let blown = false;
+<script>
+let blown=false;
 
-    function makeSmokeBurst(){
-      const candle = document.querySelector('.candle');
-      for(let i=0;i<6;i++){
-        const p = document.createElement('span');
-        p.className='smoke';
-        p.style.setProperty('--x', (Math.random()*30-15)+'px');
-        p.style.animationDelay = (Math.random()*0.25)+'s';
-        candle.appendChild(p);
-        setTimeout(()=>p.remove(), 1600);
-      }
-    }
+function blow(){
+  if(blown) return;
+  blown=true;
 
-    function makeFireworks(){
-      const colors = ['#ff3b3b','#ffcc00','#00d9ff','#9d4edd','#00ff85','#ff66cc','#00ffea'];
-      for(let i=0;i<60;i++){
-        const fw = document.createElement('span');
-        fw.className='firework';
-        fw.style.left = '50%';
-        fw.style.top = '40%';
-        const angle = Math.random()*2*Math.PI;
-        const distance = 160+Math.random()*100;
-        fw.style.background = colors[Math.floor(Math.random()*colors.length)];
-        fw.style.setProperty('--dx', Math.cos(angle)*distance+'px');
-        fw.style.setProperty('--dy', Math.sin(angle)*distance+'px');
-        document.body.appendChild(fw);
-        setTimeout(()=>fw.remove(), 1600);
-      }
-    }
+  document.getElementById("flame").style.display="none";
+  document.getElementById("card").classList.add("show");
 
-    function blowOut(){
-      if(blown) return;
-      blown = true;
-      document.body.classList.add('blown');
-      makeSmokeBurst();
-      makeFireworks();
-      relightBtn.hidden = false;
-      blowBtn.hidden = true;
-      card.classList.add('show');
-    }
+  for(let i=0;i<50;i++){
+    let f=document.createElement("div");
+    f.className="firework";
 
-    function relight(){
-      blown = false;
-      document.body.classList.remove('blown');
-      relightBtn.hidden = true;
-      blowBtn.hidden = false;
-      card.classList.remove('show');
-    }
+    let angle=Math.random()*2*Math.PI;
+    let dist=140+Math.random()*60;
 
-    cake.addEventListener('click', blowOut);
-    cake.addEventListener('touchstart', ()=> blowOut(), {passive:true});
-    cake.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') blowOut(); });
-    blowBtn.addEventListener('click', blowOut);
-    relightBtn.addEventListener('click', relight);
-  </script>
+    f.style.left="50%";
+    f.style.top="40%";
+    f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+
+    f.style.setProperty("--dx",Math.cos(angle)*dist+"px");
+    f.style.setProperty("--dy",Math.sin(angle)*dist+"px");
+
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1400);
+  }
+}
+</script>
+
 </body>
 </html>
